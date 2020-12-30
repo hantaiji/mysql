@@ -7,7 +7,7 @@ using namespace std;
 #pragma comment(lib, "ws2_32.lib")  
 #pragma comment(lib, "libmysql.lib")  
 
-//µ¥²½Ö´ĞĞ£¬²»Ïëµ¥²½Ö´ĞĞ¾Í×¢ÊÍµô  
+//å•æ­¥æ‰§è¡Œï¼Œä¸æƒ³å•æ­¥æ‰§è¡Œå°±æ³¨é‡Šæ‰  
 #define STEPBYSTEP  
 
 void Show_Menu();
@@ -18,7 +18,7 @@ void Del_User();
 void Mod_User();
 void Find_User();
 void SQL_Option();
-//±Ø±¸µÄÒ»¸öÊı¾İ½á¹¹  
+//å¿…å¤‡çš„ä¸€ä¸ªæ•°æ®ç»“æ„  
 MYSQL mydata;
 int main() {
 	cout << "****************************************" << endl;
@@ -29,7 +29,7 @@ int main() {
 
 	
 
-	//³õÊ¼»¯Êı¾İ¿â  
+	//åˆå§‹åŒ–æ•°æ®åº“  
 	if (0 == mysql_library_init(0, NULL, NULL)) {
 		cout << "mysql_library_init() succeed" << endl;
 	}
@@ -42,7 +42,7 @@ int main() {
 	system("pause");
 #endif  
 
-	//³õÊ¼»¯Êı¾İ½á¹¹  
+	//åˆå§‹åŒ–æ•°æ®ç»“æ„  
 	if (NULL != mysql_init(&mydata)) {
 		cout << "mysql_init() succeed" << endl;
 	}
@@ -55,8 +55,8 @@ int main() {
 	system("pause");
 #endif  
 
-	//ÔÚÁ¬½ÓÊı¾İ¿âÖ®Ç°£¬ÉèÖÃ¶îÍâµÄÁ¬½ÓÑ¡Ïî  
-	//¿ÉÒÔÉèÖÃµÄÑ¡ÏîºÜ¶à£¬ÕâÀïÉèÖÃ×Ö·û¼¯£¬·ñÔòÎŞ·¨´¦ÀíÖĞÎÄ  
+	//åœ¨è¿æ¥æ•°æ®åº“ä¹‹å‰ï¼Œè®¾ç½®é¢å¤–çš„è¿æ¥é€‰é¡¹  
+	//å¯ä»¥è®¾ç½®çš„é€‰é¡¹å¾ˆå¤šï¼Œè¿™é‡Œè®¾ç½®å­—ç¬¦é›†ï¼Œå¦åˆ™æ— æ³•å¤„ç†ä¸­æ–‡  
 	if (0 == mysql_options(&mydata, MYSQL_SET_CHARSET_NAME, "gbk")) {
 		cout << "mysql_options() succeed" << endl;
 	}
@@ -69,11 +69,11 @@ int main() {
 	system("pause");
 #endif  
 
-	//Á¬½ÓÊı¾İ¿â  
+	//è¿æ¥æ•°æ®åº“  
 	if (NULL
 		!= mysql_real_connect(&mydata, "localhost", "root", "htj1998928", "MySQL", 3306, NULL, 0))
-		//ÕâÀïµÄµØÖ·£¬ÓÃ»§Ãû£¬ÃÜÂë£¬¶Ë¿Ú¿ÉÒÔ¸ù¾İ×Ô¼º±¾µØµÄÇé¿ö¸ü¸Ä  
-		//µØÖ·:localhost ÓÃ»§Ãû:root ÃÜÂë:htj1998928 ¶Ë¿Ú/ÏîÄ¿Ãû:MySQL
+		//è¿™é‡Œçš„åœ°å€ï¼Œç”¨æˆ·åï¼Œå¯†ç ï¼Œç«¯å£å¯ä»¥æ ¹æ®è‡ªå·±æœ¬åœ°çš„æƒ…å†µæ›´æ”¹  
+		//åœ°å€:localhost ç”¨æˆ·å:root å¯†ç :htj1998928 ç«¯å£/é¡¹ç›®å:MySQL
 	{
 		cout << "mysql_real_connect() succeed" << endl;
 	}
@@ -86,18 +86,18 @@ int main() {
 	system("pause");
 #endif  
 
-	//sql×Ö·û´®  
+	//sqlå­—ç¬¦ä¸²  
 	string sqlstr;
 #pragma region createTable
-	//´´½¨Ò»¸ö±í  
+	//åˆ›å»ºä¸€ä¸ªè¡¨  
 	sqlstr = "CREATE TABLE IF NOT EXISTS user_info";
 	sqlstr += "(";
 	sqlstr +=
-		"user_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ÓÃ»§ ID',";
+		"user_id INT  NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ç”¨æˆ· ID',";
 	sqlstr +=
-		"user_name VARCHAR(100) CHARACTER SET gb2312 COLLATE gb2312_chinese_ci NULL COMMENT 'ÓÃ»§ĞÕÃû',";
+		"user_name VARCHAR(100) CHARACTER SET gb2312 COLLATE gb2312_chinese_ci NULL COMMENT 'ç”¨æˆ·å§“å',";
 	sqlstr +=
-		"user_second_sum INT  NOT NULL DEFAULT 0 COMMENT 'Ê¹ÓÃÊ±³¤'";
+		"user_second_sum INT  NOT NULL DEFAULT 0 COMMENT 'ä½¿ç”¨æ—¶é•¿'";
 	sqlstr += ");";
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		cout << "mysql_query() create table succeed" << endl;
@@ -116,7 +116,7 @@ int main() {
 	while (true)
 	{
 		Show_Menu();
-		cout << "ÊäÈëÄúµÄÑ¡Ôñ£º" << endl;
+		cout << "è¾“å…¥æ‚¨çš„é€‰æ‹©ï¼š" << endl;
 		cin >> choice;
 		switch (choice)
 		{
@@ -156,19 +156,19 @@ int main() {
 void Show_Menu()
 {
 	cout << "********************************" << endl;
-	cout << "******»¶Ó­Ê¹ÓÃÖ°¹¤¹ÜÀíÏµÍ³******" << endl;
-	cout << "******   0.ÍË³ö¹ÜÀí³ÌĞò   ******" << endl;
-	cout << "******   1.Ôö¼ÓÖ°¹¤ĞÅÏ¢   ******" << endl;
-	cout << "******   2.ÏÔÊ¾Ö°¹¤ĞÅÏ¢   ******" << endl;
-	cout << "******   3.É¾³ıÀëÖ°Ö°¹¤   ******" << endl;
-	cout << "******   4.ĞŞ¸ÄÖ°¹¤ĞÅÏ¢   ******" << endl;
-	cout << "******   5.²éÕÒÖ°¹¤ĞÅÏ¢   ******" << endl;
-	cout << "******   6.SQLÖ±½Ó²Ù×÷    ******" << endl;
+	cout << "******æ¬¢è¿ä½¿ç”¨èŒå·¥ç®¡ç†ç³»ç»Ÿ******" << endl;
+	cout << "******   0.é€€å‡ºç®¡ç†ç¨‹åº   ******" << endl;
+	cout << "******   1.å¢åŠ èŒå·¥ä¿¡æ¯   ******" << endl;
+	cout << "******   2.æ˜¾ç¤ºèŒå·¥ä¿¡æ¯   ******" << endl;
+	cout << "******   3.åˆ é™¤ç¦»èŒèŒå·¥   ******" << endl;
+	cout << "******   4.ä¿®æ”¹èŒå·¥ä¿¡æ¯   ******" << endl;
+	cout << "******   5.æŸ¥æ‰¾èŒå·¥ä¿¡æ¯   ******" << endl;
+	cout << "******   6.SQLç›´æ¥æ“ä½œ    ******" << endl;
 	cout << "********************************" << endl;
 }
 void ExitSystem()
 {
-	cout << "»¶Ó­ÏÂ´ÎÊ¹ÓÃ" << endl;
+	cout << "æ¬¢è¿ä¸‹æ¬¡ä½¿ç”¨" << endl;
 	system("pause");
 	exit(0);
 }
@@ -176,13 +176,13 @@ void ExitSystem()
 //
 //
 /////
-////ĞÂÔöÇÒÖ»ÄÜÔö¼ÓÒ»¸öÓÃ»§ ÊÖ¶¯ÊäÈëid ĞÕÃû Ä¬ÈÏÊ±³¤ÎªNULL
+////æ–°å¢ä¸”åªèƒ½å¢åŠ ä¸€ä¸ªç”¨æˆ· æ‰‹åŠ¨è¾“å…¥id å§“å é»˜è®¤æ—¶é•¿ä¸ºNULL
 //void Add_User121(int i)
 //{}
 //
 //
-////ĞÂÔöÒ»¸öÓÃ»§ ĞèÊÖ¶¯ÊäÈëid  ĞÕÃû Ê±³¤ ·µ»ØÕûĞÍ¹© xxxº¯Êıµ÷ÓÃ
-////¹¦ÄÜ
+////æ–°å¢ä¸€ä¸ªç”¨æˆ· éœ€æ‰‹åŠ¨è¾“å…¥id  å§“å æ—¶é•¿ è¿”å›æ•´å‹ä¾› xxxå‡½æ•°è°ƒç”¨
+////åŠŸèƒ½
 ////itrgdb:fdf
 ////
 ////fanh 
@@ -192,13 +192,13 @@ void ExitSystem()
 //}
 
 ///
-//ĞÂÔöÒ»¸öÓÃ»§ ÓÃ»§¿ÉÑ¡ĞÂÔöÊıÁ¿ ĞèÊÖ¶¯ÊäÈëid  ĞÕÃû Ê±³¤
+//æ–°å¢ä¸€ä¸ªç”¨æˆ· ç”¨æˆ·å¯é€‰æ–°å¢æ•°é‡ éœ€æ‰‹åŠ¨è¾“å…¥id  å§“å æ—¶é•¿
 void Add_User()
 {
  
 
 	//Add_User121666(5);
-	cout << "ÇëÊäÈëÌí¼ÓµÄÓÃ»§µÄÊıÁ¿£º" << endl;
+	cout << "è¯·è¾“å…¥æ·»åŠ çš„ç”¨æˆ·çš„æ•°é‡ï¼š" << endl;
 	int addNum = 0;
 	cin >> addNum;
 	for (int i = 0; i < addNum; i++)
@@ -207,14 +207,14 @@ void Add_User()
 		string name;
 		string dSecond;
 		string sqlstr;
-		cout << "ÇëÊäÈëµÚ" << i + 1 << "¸öĞÂÖ°¹¤±àºÅ£º" << endl;
+		cout << "è¯·è¾“å…¥ç¬¬" << i + 1 << "ä¸ªæ–°èŒå·¥ç¼–å·ï¼š" << endl;
 		cin >> id;
-		cout << "ÇëÊäÈëµÚ" << i + 1 << "¸öĞÂÖ°¹¤ĞÕÃû£º" << endl;
+		cout << "è¯·è¾“å…¥ç¬¬" << i + 1 << "ä¸ªæ–°èŒå·¥å§“åï¼š" << endl;
 		cin >> name;
-		cout << "ÇëÊäÈëµÚ" << i + 1 << "¸öĞÂÖ°¹¤Ê¹ÓÃÊ±³¤£º" << endl;
+		cout << "è¯·è¾“å…¥ç¬¬" << i + 1 << "ä¸ªæ–°èŒå·¥ä½¿ç”¨æ—¶é•¿ï¼š" << endl;
 		cin >> dSecond;
 
-		//Ïò±íÖĞ²åÈëÊı¾İ  
+		//å‘è¡¨ä¸­æ’å…¥æ•°æ®  
 		sqlstr =
 			"INSERT INTO user_info VALUES('";
 		sqlstr += id;
@@ -225,7 +225,7 @@ void Add_User()
 		sqlstr += "');";
 		cout << sqlstr;
 		/*sqlstr =
-			"INSERT INTO user_info(user_name) VALUES('¹«Ë¾Ãû³Æ'),('Ò»¼¶²¿ÃÅ'),('¶ş¼¶²¿ÃÅ'),('¿ª·¢Ğ¡×é'),('ĞÕÃû');";*/
+			"INSERT INTO user_info(user_name) VALUES('å…¬å¸åç§°'),('ä¸€çº§éƒ¨é—¨'),('äºŒçº§éƒ¨é—¨'),('å¼€å‘å°ç»„'),('å§“å');";*/
 		if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 			cout << "mysql_query() insert data succeed" << endl;
 		}
@@ -246,13 +246,13 @@ void show_User()
 	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
 		cout << "mysql_query() select data succeed" << endl;
 
-		//Ò»´ÎĞÔÈ¡µÃÊı¾İ¼¯  
+		//ä¸€æ¬¡æ€§å–å¾—æ•°æ®é›†  
 		result = mysql_store_result(&mydata);
-		//È¡µÃ²¢´òÓ¡ĞĞÊı  
+		//å–å¾—å¹¶æ‰“å°è¡Œæ•°  
 		int rowcount = mysql_num_rows(result);
 		cout << "row count: " << rowcount << endl;
 
-		//È¡µÃ²¢´òÓ¡¸÷×Ö¶ÎµÄÃû³Æ  
+		//å–å¾—å¹¶æ‰“å°å„å­—æ®µçš„åç§°  
 		unsigned int fieldcount = mysql_num_fields(result);
 		MYSQL_FIELD *field = NULL;
 		for (unsigned int i = 0; i < fieldcount; i++) {
@@ -263,7 +263,7 @@ void show_User()
 		/*#ifdef STEPBYSTEP
 		system("pause");
 		#endif*/
-		//´òÓ¡¸÷ĞĞ  
+		//æ‰“å°å„è¡Œ  
 		MYSQL_ROW row = NULL;
 		row = mysql_fetch_row(result);
 		while (NULL != row) {
@@ -290,12 +290,12 @@ void Del_User()
 	sqlstr = "delete  from user_info where ";
 	//sqlstr = "SELECT * FROM user_info";
 	int a;
-	cout << "°´idÉ¾³ıÇë°´1£¬°´ĞÕÃûÉ¾³ıÇë°´2" << endl;
+	cout << "æŒ‰idåˆ é™¤è¯·æŒ‰1ï¼ŒæŒ‰å§“ååˆ é™¤è¯·æŒ‰2" << endl;
 	cin >> a;
 	switch(a)
 	{
 	case 1:
-		cout << "ÇëÊäÈëÒªÉ¾³ıÈËÔ±µÄid:" << endl;
+		cout << "è¯·è¾“å…¥è¦åˆ é™¤äººå‘˜çš„id:" << endl;
 		cin >> id;
 		sqlstr += "user_id=";
 		sqlstr += id;
@@ -303,7 +303,7 @@ void Del_User()
 		cout << sqlstr << endl;
 		break;
 	case 2:
-		cout << "ÇëÊäÈëÒªÉ¾³ıÈËÔ±µÄĞÕÃû:" << endl;
+		cout << "è¯·è¾“å…¥è¦åˆ é™¤äººå‘˜çš„å§“å:" << endl;
 		cin >> name;
 		sqlstr += "user_name='";
 		sqlstr += name;
@@ -332,15 +332,15 @@ void Mod_User()
 	string dSecond;
 	string sqlstr;
 	sqlstr = "update user_info set  ";
-	cout << "ÇëÊäÈëÒªĞŞ¸ÄÈËÔ±µÄid£º" << endl;
+	cout << "è¯·è¾“å…¥è¦ä¿®æ”¹äººå‘˜çš„idï¼š" << endl;
 	cin >> id;
 	int a;
-	cout << "ĞŞ¸ÄĞÕÃûÇë°´1£¬ĞŞ¸ÄÊ¹ÓÃÊ±¼äÇë°´2" << endl;
+	cout << "ä¿®æ”¹å§“åè¯·æŒ‰1ï¼Œä¿®æ”¹ä½¿ç”¨æ—¶é—´è¯·æŒ‰2" << endl;
 	cin >> a;
 	switch (a)
 	{
 	case 1:
-		cout << "ÇëÊäÈëĞÂĞÕÃû:" << endl;
+		cout << "è¯·è¾“å…¥æ–°å§“å:" << endl;
 		cin >> name;
 		sqlstr += "user_name='";
 		sqlstr += name;
@@ -350,7 +350,7 @@ void Mod_User()
 		cout << sqlstr << endl;
 		break;
 	case 2:
-		cout << "ÇëÊäÈëĞÂÊ±¼ä:" << endl;
+		cout << "è¯·è¾“å…¥æ–°æ—¶é—´:" << endl;
 		cin >> dSecond;
 		sqlstr += "user_second_sum='";
 		sqlstr += dSecond;
@@ -372,7 +372,7 @@ void Mod_User()
 		system("pause");
 		system("cls");
 	}
-	/*cout << "ÊäÈëÒªĞŞ¸ÄµÄid" << endl;
+	/*cout << "è¾“å…¥è¦ä¿®æ”¹çš„id" << endl;
 	sqlstr = "update user_info set user_name=' ";
 	cin >> name;
 	sqlstr += name;
@@ -386,12 +386,12 @@ void Find_User()
 	sqlstr = "select * from user_info where ";
 	//sqlstr = "SELECT * FROM user_info";
 	int a;
-	cout << "°´id²éÕÒÇë°´1£¬°´ĞÕÃû²éÕÒÇë°´2" << endl;
+	cout << "æŒ‰idæŸ¥æ‰¾è¯·æŒ‰1ï¼ŒæŒ‰å§“åæŸ¥æ‰¾è¯·æŒ‰2" << endl;
 	cin >> a;
 	switch (a)
 	{
 	case 1:
-		cout << "ÇëÊäÈëÒª²éÕÒÈËÔ±µÄid:" << endl;
+		cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾äººå‘˜çš„id:" << endl;
 		cin >> id;
 		sqlstr += "user_id=";
 		sqlstr += id;
@@ -399,7 +399,7 @@ void Find_User()
 		cout << sqlstr << endl;
 		break;
 	case 2:
-		cout << "ÇëÊäÈëÒª²éÕÒÈËÔ±µÄĞÕÃû:" << endl;
+		cout << "è¯·è¾“å…¥è¦æŸ¥æ‰¾äººå‘˜çš„å§“å:" << endl;
 		cin >> name;
 		sqlstr += "user_name='";
 		sqlstr += name;
@@ -415,13 +415,13 @@ void Find_User()
 	//if (0 == mysql_query(&mydata, a)) {
 		cout << "mysql_query() select data succeed" << endl;
 
-		//Ò»´ÎĞÔÈ¡µÃÊı¾İ¼¯  
-		result = mysql_store_result(&mydata);//ÕâÀï¡°ÔöÉ¾¸Ä²é¡±¶¼ÄÜÖ´ĞĞµ½
-		//È¡µÃ²¢´òÓ¡ĞĞÊı  
-		int rowcount = mysql_num_rows(result);//Ã²ËÆÖ»ÓĞ²éÕÒ²»»áÒı·¢bug£¬¿ÉÄÜÊÇÖ»ÓĞselect»á·µ»Ø¡°Êı¾İ¼¯¡±£¬²ÅÄÜÖ´ĞĞÏÂÃæµÄ½á¹û£¬ÆäËûupdate insert delete²»·µ»Ø¡°Êı¾İ¼¯¡±£¬ÕâÌõÓï¾äÖ´ĞĞ²»ÏÂÈ¥
+		//ä¸€æ¬¡æ€§å–å¾—æ•°æ®é›†  
+		result = mysql_store_result(&mydata);//è¿™é‡Œâ€œå¢åˆ æ”¹æŸ¥â€éƒ½èƒ½æ‰§è¡Œåˆ°
+		//å–å¾—å¹¶æ‰“å°è¡Œæ•°  
+		int rowcount = mysql_num_rows(result);//è²Œä¼¼åªæœ‰æŸ¥æ‰¾ä¸ä¼šå¼•å‘bugï¼Œå¯èƒ½æ˜¯åªæœ‰selectä¼šè¿”å›â€œæ•°æ®é›†â€ï¼Œæ‰èƒ½æ‰§è¡Œä¸‹é¢çš„ç»“æœï¼Œå…¶ä»–update insert deleteä¸è¿”å›â€œæ•°æ®é›†â€ï¼Œè¿™æ¡è¯­å¥æ‰§è¡Œä¸ä¸‹å»
 		cout << "row count: " << rowcount << endl;
 
-		//È¡µÃ²¢´òÓ¡¸÷×Ö¶ÎµÄÃû³Æ  
+		//å–å¾—å¹¶æ‰“å°å„å­—æ®µçš„åç§°  
 		unsigned int fieldcount = mysql_num_fields(result);
 		MYSQL_FIELD *field = NULL;
 		for (unsigned int i = 0; i < fieldcount; i++) {
@@ -432,12 +432,12 @@ void Find_User()
 		/*#ifdef STEPBYSTEP
 		system("pause");
 		#endif*/
-		//´òÓ¡¸÷ĞĞ  
+		//æ‰“å°å„è¡Œ  
 		MYSQL_ROW row = NULL;
 		row = mysql_fetch_row(result);
 		if (row == NULL)
 		{
-			cout << "¼ÇÂ¼Îª¿Õ£¡" << endl;
+			cout << "è®°å½•ä¸ºç©ºï¼" << endl;
 		}
 		else
 		{
@@ -458,70 +458,13 @@ void Find_User()
 		system("cls");
 	}
 }
-//void Find_User()
-//{
-//	//char a[50];
-//	string sqlstr;
-//	cout << "ÇëÊäÈë²éÑ¯Óï¾ä"<< endl;
-//	getchar();//Ö®Ç°°´µÄ»Ø³µ»áÁôÔÚ»º´æÇø£¬ cinµÄ½áÊø·û£¬½áÊøºó£¬½áÊø·û»¹ÔÚ»º´æÇø£»
-//	//getchar()/getline()½áÊøºó£¬½áÊø·û²»·ÅÈë»º´æÇø,Òò´Ë¼ÓÈë¸ÃĞĞ·ÀÖ¹ÏÂÒ»ĞĞgetline½«Ö®Ç°µÄ»Ø³µ¶ÁÈë£¬µ¼ÖÂÖ±½ÓÌø¹ıÊäÈë
-//	getline(cin,sqlstr);
-//	//cin.get(a, 50);
-//	cout << sqlstr << endl;
-//	MYSQL_RES *result = NULL;
-//	if (0 == mysql_query(&mydata, sqlstr.c_str())) {
-//	//if (0 == mysql_query(&mydata, a)) {
-//		cout << "mysql_query() select data succeed" << endl;
-//
-//		//Ò»´ÎĞÔÈ¡µÃÊı¾İ¼¯  
-//		result = mysql_store_result(&mydata);
-//		//È¡µÃ²¢´òÓ¡ĞĞÊı  
-//		int rowcount = mysql_num_rows(result);
-//		cout << "row count: " << rowcount << endl;
-//
-//		//È¡µÃ²¢´òÓ¡¸÷×Ö¶ÎµÄÃû³Æ  
-//		unsigned int fieldcount = mysql_num_fields(result);
-//		MYSQL_FIELD *field = NULL;
-//		for (unsigned int i = 0; i < fieldcount; i++) {
-//			field = mysql_fetch_field_direct(result, i);
-//			cout << field->name << "\t\t";
-//		}
-//		cout << endl;
-//		/*#ifdef STEPBYSTEP
-//		system("pause");
-//		#endif*/
-//		//´òÓ¡¸÷ĞĞ  
-//		MYSQL_ROW row = NULL;
-//		row = mysql_fetch_row(result);
-//		if (row == NULL)
-//		{
-//			cout << "¼ÇÂ¼Îª¿Õ£¡" << endl;
-//		}
-//		else
-//		{
-//			while (NULL != row) {
-//				for (int i = 0; i < fieldcount; i++) {
-//					cout << row[i] << "\t\t\t";
-//				}
-//				cout << endl;
-//				row = mysql_fetch_row(result);
-//			}
-//		}
-//
-//	}
-//	else {
-//		cout << "mysql_query() select data failed" << endl;
-//		//mysql_close(&mydata);
-//		system("pause");
-//		system("cls");
-//	}
-//}
+
 void SQL_Option()
 {
 	string sqlstr;
-	cout << "ÇëÊäÈëSQLÓï¾ä"<< endl;
-	getchar();//Ö®Ç°°´µÄ»Ø³µ»áÁôÔÚ»º´æÇø£¬ cinµÄ½áÊø·û£¬½áÊøºó£¬½áÊø·û»¹ÔÚ»º´æÇø£»
-	//getchar()/getline()½áÊøºó£¬½áÊø·û²»·ÅÈë»º´æÇø,Òò´Ë¼ÓÈë¸ÃĞĞ·ÀÖ¹ÏÂÒ»ĞĞgetline½«Ö®Ç°µÄ»Ø³µ¶ÁÈë£¬µ¼ÖÂÖ±½ÓÌø¹ıÊäÈë
+	cout << "è¯·è¾“å…¥SQLè¯­å¥"<< endl;
+	getchar();//ä¹‹å‰æŒ‰çš„å›è½¦ä¼šç•™åœ¨ç¼“å­˜åŒºï¼Œ cinçš„ç»“æŸç¬¦ï¼Œç»“æŸåï¼Œç»“æŸç¬¦è¿˜åœ¨ç¼“å­˜åŒºï¼›
+	//getchar()/getline()ç»“æŸåï¼Œç»“æŸç¬¦ä¸æ”¾å…¥ç¼“å­˜åŒº,å› æ­¤åŠ å…¥è¯¥è¡Œé˜²æ­¢ä¸‹ä¸€è¡Œgetlineå°†ä¹‹å‰çš„å›è½¦è¯»å…¥ï¼Œå¯¼è‡´ç›´æ¥è·³è¿‡è¾“å…¥
 	getline(cin,sqlstr);
 	//cin.get(a, 50);
 	cout << sqlstr << endl;
